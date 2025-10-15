@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pertanyaan Spesial Untukmu 💕</title>
+    
+    <style>
+        /* Import Font Romantis dari Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7); /* Gradasi warna pink romantis */
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden; /* Mencegah scroll bar muncul saat tombol lari */
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease-in-out;
+            max-width: 90%;
+        }
+
+        img {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive; /* Font tulisan tangan yang romantis */
+            font-size: 2.2rem;
+            color: #d83a7a;
+            margin-bottom: 30px;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 40px; /* <<< INI YANG DIUBAH UNTUK MENAMBAH JARAK */
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        #yes-button {
+            background-color: #28a745; /* Hijau tanda setuju */
+        }
+
+        #yes-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(40, 167, 69, 0.5);
+        }
+
+        #no-button {
+            background-color: #dc3545; /* Merah tanda menolak */
+            position: absolute; /* Kunci agar tombol bisa bergerak bebas */
+            transition: top 0.2s ease, left 0.2s ease; /* Transisi agar gerakan lari terlihat mulus */
+        }
+
+        /* Style untuk efek hati jatuh */
+        .heart {
+            position: absolute;
+            top: -10vh;
+            font-size: 2rem;
+            animation: fall 5s linear infinite;
+            user-select: none;
+            color: #ff7999;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-container">
+        <img id="gif" src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-love.gif" alt="Animasi Pasangan Lucu">
+        <h1>Kamu sayang aku ga?</h1>
+        <div class="buttons">
+            <button id="yes-button">Sayang</button>
+            <button id="no-button">Tidak</button>
+        </div>
+    </div>
+
+    <script>
+        // Mengambil elemen-elemen yang dibutuhkan dari HTML
+        const noButton = document.getElementById('no-button');
+        const yesButton = document.getElementById('yes-button');
+        const mainContainer = document.getElementById('main-container');
+
+        // Event listener saat kursor mendekati tombol "Tidak"
+        noButton.addEventListener('mouseover', () => {
+            // Mendapatkan ukuran layar
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            // Mendapatkan ukuran tombol
+            const buttonWidth = noButton.offsetWidth;
+            const buttonHeight = noButton.offsetHeight;
+
+            // Menghitung posisi acak baru agar tidak keluar layar
+            const randomX = Math.floor(Math.random() * (viewportWidth - buttonWidth));
+            const randomY = Math.floor(Math.random() * (viewportHeight - buttonHeight));
+
+            // Menerapkan posisi baru pada tombol
+            noButton.style.left = `${randomX}px`;
+            noButton.style.top = `${randomY}px`;
+        });
+
+        // Event listener saat tombol "Sayang" diklik
+        yesButton.addEventListener('click', () => {
+            // Mengubah seluruh konten di dalam container
+            mainContainer.innerHTML = `
+                <img src="https://media.tenor.com/d5v-1i96LzAAAAAi/cute-love.gif" alt="Animasi Cinta">
+                <h1>Aku juga sayang kamuuu! 🥰</h1>
+            `;
+
+            // Membuat efek hati berjatuhan
+            setInterval(createHeart, 300);
+        });
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerText = '❤️';
+            
+            // Posisi horizontal acak
+            heart.style.left = Math.random() * 100 + 'vw';
+            // Durasi animasi acak agar terlihat natural
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's'; // antara 3s dan 5s
+            
+            document.body.appendChild(heart);
+            
+            // Hapus elemen hati setelah animasinya selesai untuk menjaga performa
+            setTimeout(() => {
+                heart.remove();
+            }, 5000); // Hapus setelah 5 detik
+        }
+    </script>
+
+</body>
+</html>
